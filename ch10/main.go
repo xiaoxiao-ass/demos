@@ -10,7 +10,8 @@ import (
 func main() {
 	//test1()
 	//test2()
-	context.TestContext()
+	//context.TestContext()
+	context.TestContext2()
 }
 
 func test2(){
