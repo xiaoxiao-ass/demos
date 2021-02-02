@@ -1,59 +1,42 @@
 package  main
 
-import "fmt"
+import (
+	"demo/ch12/futures"
+	"fmt"
+	"time"
+)
 
 func main()  {
 
- s:= buy(10)
+	//管道
+	//pipeline.Test2()
 
- p:=build(s)
-
- pack:=pack(p)
-
- for v:=range pack{
- 	fmt.Println(v)
- }
-
- /*for i:=0;i<10;i++{
-	 select {
- 		case v:=<-s:
- 			fmt.Println(v)
-	}
- }*/
-}
-
-func buy(num int) <-chan string{
-	ch:=make(chan string)
-
+	//无缓冲，不能存数据，读取写入需同步否则阻塞
+	/*out := make(chan string)
 	go func() {
-		defer close(ch)
-		for i:=1;i<num;i++{
-            ch<-fmt.Sprint(i,"号")
-		}
+		out<-"sss"
 	}()
-	return ch
+
+	fmt.Println(<-out)*/
+
+	/*select {
+   		case v:=<-out:
+   	     fmt.Println(v)
+   }*/
+
+	//futures模式  分散任务,不需要结果之前，忽略其他goroutine执行状态   需要直接获取返回结果，如果该goroutine还未执行完，阻塞等待执行完
+	a:=futures.WashingVegetables()
+	b:=futures.BoilWater()
+	fmt.Println("休息")
+	time.Sleep(2*time.Second)
+	v:=<-a
+	v2:=<-b
+
+	fmt.Println(v,v2)
+
+
+
+
+
 }
 
-//工序2组装
-func build(in <-chan string) <-chan string {
-	out := make(chan string)
-	go func() {
-		defer close(out)
-		for c := range in {
-			out <- "组装(" + c + ")"
-		}
-	}()
-	return out
-}
-
-//工序3打包
-func pack(in <-chan string) <-chan string {
-	out := make(chan string)
-	go func() {
-		defer close(out)
-		for c := range in {
-			out <- "打包(" + c + ")"
-		}
-	}()
-	return out
-}
