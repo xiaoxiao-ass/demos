@@ -7,6 +7,19 @@ import (
 )
 
 func main() {
+	fmt.Println(0&1) //0
+	fmt.Println(3&4)  //00000011&00000100  = 00000000
+	fmt.Println(-3&-1)//
+	fmt.Println(3|2)  //3
+
+	fmt.Println("__________-")
+	fmt.Println(2&3)
+	fmt.Println(2|3)
+	fmt.Println(2^3)
+	fmt.Println(-2^2)
+
+
+
 	//变量简短声明
 	i:=10
 	bf:=false
@@ -58,6 +71,16 @@ func main() {
 	f2i:=int(f64)
 	fmt.Println()
 	fmt.Println(i2f,f2i)
+
+
+
+	f, err := strconv.ParseFloat("3.1415", 64)
+
+	fmt.Println(f)
+	iss, err := strconv.ParseInt("-428899", 10, 16)
+	fmt.Println(iss)
+	u, err := strconv.ParseUint("42", 10, 64)
+	fmt.Println(u)
 
 	str:="sssdeb"
 	//字符串工具类strings
