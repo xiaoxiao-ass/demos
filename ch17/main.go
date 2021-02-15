@@ -45,7 +45,7 @@ func stringToByteSlices2(){
 	by:=(*reflect.SliceHeader)(unsafe.Pointer(&s))
 	by.Cap=by.Len
 	ss:=*(*[]byte)(unsafe.Pointer(by))
-	fmt.Println(ss)git
+	fmt.Println(ss)
 
 }
 
